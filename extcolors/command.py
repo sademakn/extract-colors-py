@@ -5,7 +5,7 @@ import time
 
 from PIL import Image, ImageDraw
 
-from extcolors import __version__, DEFAULT_TOLERANCE, extract_from_path
+from extcolors import __version__, DEFAULT_TOLERANCE, extract_from_path, get_color_name
 
 
 def print_result(colors, pixel_count):
@@ -13,12 +13,12 @@ def print_result(colors, pixel_count):
     color_count = sum([color[1] for color in colors])
     for color in colors:
         rgb = str(color[0])
+        name = get_color_name(color[0])
         count = color[1]
         percentage = "{:.2f}".format((float(count) / float(color_count)) * 100.0)
-        print(f"{rgb:15}:{percentage:>7}% ({count})")
+        print(f"{name}: {rgb:15}:{percentage:>7}% ({count})")
 
     print(f"\nPixels in output: {color_count} of {pixel_count}")
-
 
 def image_result(colors, size, filename):
     columns = 5
