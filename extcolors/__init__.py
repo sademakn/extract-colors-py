@@ -2,12 +2,28 @@ import collections
 
 from convcolors import rgb_to_lab
 from PIL import Image, ImageDraw
+import numpy as np
+from sklearn.neighbors import KDTree
+import webcolors
 
 from extcolors import difference
 
 __version__ = "1.0.0"
 
 DEFAULT_TOLERANCE = 32
+
+RGB_TO_NAME = {tuple(webcolors.hex_to_rgb(j)): i for i, j in  webcolors.CSS3_NAMES_TO_HEX.items()}
+RGB_LIST = list(RGB_TO_NAME.keys())
+COLOR_TREE = KDTree(np.array(RGB_LIST), leaf_size=4)
+
+
+def get_color_name(color):
+    global COLOR_TREE
+    global rgb_list
+    global rgb_to_name
+    dist, ind = COLOR_TREE.query([color], k=1)
+    nearest_color = tuple(RGB_LIST[ind[0][0]])
+    return RGB_TO_NAME[nearest_color]
 
 
 class Color:
