@@ -35,6 +35,9 @@ setup(
 	install_requires=[
 		"Pillow >=8.0.0",
 		"convcolors >=1.0.0",
+		"webcolors >=1.11.1",
+		"numpy >=1.20.2",
+		"scikit-learn >=0.24.2"
 	],
 	extras_require={
 		"dev": [
